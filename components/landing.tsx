@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/accordion"
 import Image from 'next/image';
  import { FaCheck,FaXmark } from "react-icons/fa6";
-import Header from './header';
+import Header from './headerLanding';
 const Home = () => {
   return (
     <div className="min-h-screen flex flex-col">
