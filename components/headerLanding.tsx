@@ -28,13 +28,13 @@ const Header = () => {
                     <a className="link-underline cursor-pointer">Pricing</a>
                     <a className="link-underline cursor-pointer">Contact</a>
                     <SignedIn >
-                    <button onClick={handleClick} className="items-center py-2 px-2 font-bold bg-accent hover:bg-strongAccent rounded-lg text-black text-sm">
+                    <button onClick={handleClick} className="items-center py-2 px-2 font-bold bg-primary rounded-lg text-black text-sm">
                                 Dashboard
                     </button>            
                     </SignedIn>
                     <SignedOut>
                         <SignInButton>
-                            <button className="items-center py-2 px-2 font-bold bg-accent hover:bg-strongAccent rounded-lg text-black text-sm">
+                            <button className="items-center py-2 px-2 font-bold bg-primary rounded-lg text-black text-sm">
                                 Sign In
                             </button>
                         </SignInButton>

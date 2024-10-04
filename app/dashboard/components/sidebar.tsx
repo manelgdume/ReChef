@@ -30,7 +30,7 @@ export default function Sidebar() {
       <nav className="flex flex-col items-center gap-4 px-2 sm:py-5">
         <Link
           href="#"
-          className="group flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:h-8 md:w-8 md:text-base"
+          className="group flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full text-lg font-semibold text-primary-foreground md:h-8 md:w-8 md:text-base"
         >
           <Image
             src={'/logoipsum-265.svg'}
@@ -43,7 +43,7 @@ export default function Sidebar() {
           <TooltipTrigger asChild>
             <Link
               href="/dashboard"
-              className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-white md:h-8 md:w-8"
+              className="flex h-9 w-9 items-center justify-center rounded-lg   transition-colors hover:text-white md:h-8 md:w-8"
             >
               <Home className="h-5 w-5" />
               <span className="sr-only">Dashboard</span>
@@ -55,7 +55,7 @@ export default function Sidebar() {
           <TooltipTrigger asChild>
             <Link
               href="/dashboard/recipes"
-              className="flex h-9 w-9 items-center justify-center rounded-lg bg-strongForeground text-accent-foreground transition-colors hover:text-white md:h-8 md:w-8"
+              className="flex h-9 w-9 items-center justify-center rounded-lg   transition-colors hover:text-white md:h-8 md:w-8"
             >
               <Utensils className="h-5 w-5" />
               <span className="sr-only">Recipes</span>
@@ -67,7 +67,7 @@ export default function Sidebar() {
           <TooltipTrigger asChild>
             <Link
               href="/dashboard/new"
-              className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-white md:h-8 md:w-8"
+              className="flex h-9 w-9 items-center justify-center rounded-lg   transition-colors hover:text-white md:h-8 md:w-8"
             >
               <PlusCircle className="h-5 w-5" />
               <span className="sr-only">New recipe</span>
@@ -81,7 +81,7 @@ export default function Sidebar() {
           <TooltipTrigger asChild>
             <Link
               href="/dashboard/settings"
-              className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-white md:h-8 md:w-8"
+              className="flex h-9 w-9 items-center justify-center rounded-lg   transition-colors hover:text-white md:h-8 md:w-8"
             >
               <Settings className="h-5 w-5" />
               <span className="sr-only">Settings</span>

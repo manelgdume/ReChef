@@ -27,9 +27,10 @@ export async function POST(req: Request) {
             meal: recipeData.meal,
             creatorID: recipeData.creatorID,
         }
-        const newRecipe = new Recipe(recipe);
-        await newRecipe.save(); 
-
+        for(let i=0;i<20;i++){
+            const newRecipe = new Recipe(recipe);
+            await newRecipe.save(); 
+        }
         return NextResponse.json("elro", { status: 200 });
     } catch (error) {
         console.error(error);

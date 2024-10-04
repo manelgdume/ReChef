@@ -20,7 +20,7 @@ const Home = () => {
           <h2 className='mt-4 text-md text-background'>Create personalized recipes in seconds, tailored to your tastes and dietary needs.</h2>
           <div className='flex mt-4 items-center'>
             <input className='flex bg-foreground rounded-md border-strongForeground border p-2 mr-4 w-80 placeholder:text-white focus:outline-none' type="text" name="" id="" placeholder='Enter your email for updates' />
-            <button className='items-center py-2 px-4 font-bold bg-accent hover:bg-strongAccent rounded-lg text-black text-md'><span>Get Started Now</span></button>
+            <button className='items-center py-2 px-4 font-bold bg-primary rounded-lg text-black text-md'><span>Get Started Now</span></button>
           </div>
           <div className='my-8' style={{ position: 'relative', width: '90%', height: '500px' }}>
             <Image
@@ -45,14 +45,14 @@ const Home = () => {
           <div className='grid'>
             <h3 className=' text-2xl font-bold justify-center'>Transform Your Cooking with AI-Powered Recipes!</h3>
             <p className='mt-4 text-sm'>Discover a world of culinary creativity at your fingertips. Our AI technology crafts personalized recipes tailored to your tastes and dietary needs, making cooking fun and effortless.</p>
-            <button className='mt-8 items-center p-2 font-bold bg-accent hover:bg-strongAccent rounded-lg text-black text-sm w-64'><span>Get Started Now</span></button>
+            <button className='mt-8 items-center p-2 font-bold bg-primary rounded-lg text-black text-sm w-64'><span>Get Started Now</span></button>
             <p className='text-sm mt-4'>Read Our Privacy Policy Here</p>
           </div>
         </div>
         <div id='section' className='items-center justify-items-center px-16 py-16 max-w-screen-xl mx-auto' >
           <h3 className=' text-2xl font-bold justify-center'>Unlock Flavorful Creations with AI</h3>
           <div>
-            <button className='mt-8 items-center p-2 font-bold bg-accent hover:bg-strongAccent rounded-lg text-black text-sm w-64'><span>Start Your Culinary Journey</span></button>
+            <button className='mt-8 items-center p-2 font-bold bg-primary  rounded-lg text-black text-sm w-64'><span>Start Your Culinary Journey</span></button>
             <button className='mt-8 ml-4 items-center p-2 font-bold bg-white  border border-grey-600 rounded-lg text-black text-sm w-64'><span>Discover More Features</span></button>
           </div>
           <div>
@@ -196,7 +196,7 @@ const Home = () => {
                   <FaXmark color="#EB801D" />
                   </div> Flexible subscription models
                 </span>
-                <button className='mt-8 items-center p-2 font-bold bg-accent hover:bg-strongAccent rounded-lg text-black text-sm w-64'><span>Start Your Pro Trial</span></button>
+                <button className='mt-8 items-center p-2 font-bold bg-primary rounded-lg text-black text-sm w-64'><span>Start Your Pro Trial</span></button>
               </div>
 
             </div>
