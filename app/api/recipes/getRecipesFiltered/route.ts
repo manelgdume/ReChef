@@ -16,8 +16,7 @@ export async function POST(req: Request) {
 
         if (goal) query.goal = goal;  
         if (meal) query.meal = meal;  
-        console.log(query)
-        console.log(body.params)
+ 
         const recipes = await Recipe.find(query).skip(skip).limit(nResults);
         const counts = await Recipe.countDocuments({ creatorID: userID, ...(goal && { goal }), ...(meal && { meal }) });
 

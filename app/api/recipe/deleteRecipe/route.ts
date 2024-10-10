@@ -10,8 +10,6 @@ export async function POST(req: Request) {
 
         const recipeId = body.params.id;
         const res = await Recipe.findByIdAndDelete(recipeId).exec();;
-        
-        console.log(res)
  
         return NextResponse.json(res, { status: 200 });
     } catch (error) {

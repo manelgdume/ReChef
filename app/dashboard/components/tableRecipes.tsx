@@ -83,14 +83,17 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
+import { Skeleton } from "@/components/ui/skeleton";
 
-export default function TableRecipes({ meal, goal }: any) {
+export default function TableRecipes({ meal, goal, pagination }: any) {
     const { userId } = useAuth();
     const [recipes, setRecipes] = useState<any>(undefined);
+    const [loading, setLoading] = useState<boolean>(true);
     const [pages, setPages] = useState<any>(undefined);
     const filterGoal = goal
+    const paginationBool = pagination
     let filterMeal = meal
-    console.log(filterMeal)
+
     useEffect(() => {
         getRecipes(1, true)
     }, [filterMeal]);
@@ -107,6 +110,7 @@ export default function TableRecipes({ meal, goal }: any) {
 
 
     const getRecipes = async (page: number, getCounts: boolean) => {
+
         let p = {
             getCounts: getCounts,
             userID: userId,
@@ -114,7 +118,7 @@ export default function TableRecipes({ meal, goal }: any) {
             goal: filterGoal,
             meal: filterMeal
         }
-        console.log(p)
+
         try {
             const response = await fetch('/api/recipes/getRecipesFiltered', {
                 method: 'POST',
@@ -135,14 +139,14 @@ export default function TableRecipes({ meal, goal }: any) {
             if (!response.ok) {
                 throw new Error('Error en la solicitud: ' + response.statusText);
             }
-            
+
             const data = await response.json();
-            console.log(data)
+
             if (data.counts) {
                 const p = Array.from({ length: getPages(data.counts) }, (_, i) => i + 1);
                 setPages(p)
             }
-            console.log(data.recipes)
+
             setRecipes(data.recipes)
 
         } catch (error) {
@@ -170,14 +174,54 @@ export default function TableRecipes({ meal, goal }: any) {
                 recipes.filter((recipe: any) => recipe.id == id)
             }
 
-
         } catch (error) {
             console.error('Error al obtener recetas:', error);
         }
     }
     if (!recipes) {
-        return <CardContent></CardContent>;
+        return <CardContent>
+            <Table  >
+                <TableHeader>
+                    <TableRow>
+                        <TableHead>Name</TableHead>
+                        <TableHead>Goal</TableHead>
+                        <TableHead className="hidden md:table-cell">
+                            Meal
+                        </TableHead>
+                        <TableHead className="hidden md:table-cell">
+                            Description
+                        </TableHead>
+                        <TableHead>
+                            <span  >Actions</span>
+                        </TableHead>
+                    </TableRow>
+                </TableHeader>
+                <TableBody>
+                    {[...Array(7)].map((_, index) => (
+                        <TableRow key={index}>
+                            <TableCell className="font-medium hover:underline">
+                                <Skeleton className="w-[100px] h-[10px] rounded-full bg-gray-100" />
+                                <Skeleton className="w-[50px] h-[10px] rounded-full mt-2 bg-gray-100" />
+                            </TableCell>
+                            <TableCell>
+                                <Skeleton className="w-[50px] h-[10px] rounded-full bg-gray-100" />
+                            </TableCell>
+                            <TableCell className="hidden md:table-cell">
+                                <Skeleton className="w-[60px] h-[10px] rounded-full bg-gray-100" />
+                            </TableCell>
+                            <TableCell className="hidden md:table-cell">
+                                <Skeleton className="w-[300px] h-[10px] rounded-full bg-gray-100" />
+                            </TableCell>
+                            <TableCell>
+                                <Skeleton className="w-[50px] h-[10px] rounded-full bg-gray-100" />
+                            </TableCell>
+                        </TableRow>
+                    ))}
+                </TableBody>
+            </Table>
+        </CardContent>;
     }
+
     return (
         <CardContent>
             <Table  >
@@ -200,8 +244,8 @@ export default function TableRecipes({ meal, goal }: any) {
                     {recipes != undefined && (
                         Object.values(recipes).map((recipe: any, index: number) => (
                             <TableRow key={index}>
-                                <TableCell className="font-medium">
-                                    {recipe.name}
+                                <TableCell className="font-medium hover:underline">
+                                    <Link href={"/dashboard/recipes/recipe/" + recipe._id}>{recipe.name}</Link>
                                 </TableCell>
                                 <TableCell>
                                     <Badge variant="outline">{capitalize(recipe.goal)}</Badge>
@@ -251,22 +295,25 @@ export default function TableRecipes({ meal, goal }: any) {
                     )}
                 </TableBody>
             </Table>
-
-            <Pagination className="mt-4">
-                <PaginationContent>
-                    <PaginationItem>
-                        <PaginationPrevious href="#" />
-                    </PaginationItem>
-                    {pages?.map((i: any) => (
-                        <PaginationItem className="shadow-transparent" key={i}>
-                            <Button className="bg-background shadow-transparent hover:bg-accent" onClick={() => getRecipes(i, false)}>{i}</Button>
+            {paginationBool && (
+                <Pagination className="mt-4">
+                    <PaginationContent>
+                        <PaginationItem>
+                            <PaginationPrevious href="#" />
                         </PaginationItem>
-                    ))}
-                    <PaginationItem>
-                        <PaginationNext href="#" />
-                    </PaginationItem>
-                </PaginationContent>
-            </Pagination>
+                        {pages?.map((i: any) => (
+                            <PaginationItem className="shadow-transparent" key={i}>
+                                <Button className="bg-background shadow-transparent hover:bg-accent" onClick={() => getRecipes(i, false)}>{i}</Button>
+                            </PaginationItem>
+                        ))}
+                        <PaginationItem>
+                            <PaginationNext href="#" />
+                        </PaginationItem>
+                    </PaginationContent>
+                </Pagination>
+            )
+            }
+
 
         </CardContent>
 

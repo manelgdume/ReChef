@@ -1,6 +1,6 @@
 "use client"
 
- import axios from "axios";
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { FaUtensils } from "react-icons/fa6";
 import { FaBullseye } from "react-icons/fa6";
@@ -13,6 +13,7 @@ import {
     BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
 import Sidebar from "@/app/dashboard/components/sidebar";
+import Header from "@/app/dashboard/components/header";
 
 export default function Page({ params }: { params: { id: string } }) {
     const id = params.id;
@@ -50,50 +51,53 @@ export default function Page({ params }: { params: { id: string } }) {
     }
 
     return (
-        <div className="flex min-h-screen w-full">
+        <div className="flex min-h-screen w-full flex-col bg-muted/40">
             <Sidebar />
-            <main className="flex-1 bg-white p-8 mr-32">
+            <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
+                <Header />
 
-                <header className="mt-16 mb-8">
-                    <h1 className="text-2xl font-semibold">{capitalize(recipe.name)}</h1>
-                    <div className="flex items-center text-gray-500 text-sm  mt-2">
-                        <div className="flex items-center">
-                            <FaUtensils />
-                            <span className="ml-2">{capitalize(recipe.meal)}</span>
+                <main className="flex-1 bg-white px-6 mt-4 sm:mt-0">
+                    <header className="mb-8">
+                        <h1 className="text-lg font-semibold">{capitalize(recipe.name)}</h1>
+                        <div className="flex items-center text-sm text-muted-foreground  mt-2">
+                            <div className="flex items-center">
+                                <FaUtensils />
+                                <span className="ml-2">{capitalize(recipe.meal)}</span>
+                            </div>
+                            <div className="flex items-center ml-8 " >
+                                <FaBullseye color="gray-500" />
+                                <p className="ml-2"> {capitalize(recipe.goal)} Weight</p>
+                            </div>
                         </div>
-                        <div className="flex items-center ml-8 " >
-                            <FaBullseye color="gray-500" />
-                            <p className="ml-2"> {capitalize(recipe.goal)} Weight</p>
+                        <p className="mt-4 text-sm">{recipe.description}</p>
+                    </header>
+                    <div className="grid grid-cols-1 gap-2 text-sm">
+                        <div>
+                            <section className="mb-8">
+                                <h2 className="font-semibold mb-4">Ingredients</h2>
+                                <ul className="list-disc pl-5">
+                                    {recipe.ingredients.map((ingredient: any, index: number) => (
+                                        <li key={index} className="mt-2">
+                                            {ingredient.ingredient} - <span>{ingredient.quantity}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </section>
+                        </div>
+                        <div>
+                            <section className="mb-8">
+                                <h2 className="font-semibold mb-4">Instructions</h2>
+                                <ol className="list-decimal pl-5">
+                                    {recipe.instructions.map((instruction: string, index: number) => (
+                                        <li className="mt-2" key={index}>{instruction}</li>
+                                    ))}
+                                </ol>
+                            </section>
                         </div>
                     </div>
-                    <p className="mt-4 text-md">{recipe.description}</p>
-                </header>
-                <div className="grid grid-cols-1 gap-2">
-                    <div>
-                        <section className="mb-8">
-                            <h2 className="text-2xl font-semibold mb-4">Ingredients</h2>
-                            <ul className="list-disc pl-5">
-                                {recipe.ingredients.map((ingredient: any, index: number) => (
-                                    <li key={index} className="mt-2">
-                                        {ingredient.ingredient} - <span>{ingredient.quantity}</span>
-                                    </li>
-                                ))}
-                            </ul>
-                        </section>
-                    </div>
-                    <div>
-                        <section className="mb-8">
-                            <h2 className="text-2xl font-semibold mb-4">Instructions</h2>
-                            <ol className="list-decimal pl-5">
-                                {recipe.instructions.map((instruction: string, index: number) => (
-                                    <li className="mt-2" key={index}>{instruction}</li>
-                                ))}
-                            </ol>
-                        </section>
-                    </div>
-                </div>
 
-            </main>
+                </main>
+            </div>
         </div>
     );
 }

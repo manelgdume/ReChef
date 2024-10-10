@@ -105,16 +105,16 @@ export default function Page() {
                                 </CardDescription>
                             </CardHeader>
                             <TabsContent value="all">
-                                <TableRecipes goal={""} meal={meal} ></TableRecipes>
+                                <TableRecipes goal={""} meal={meal} pagination={true}></TableRecipes>
                             </TabsContent>
                             <TabsContent value="gain">
-                                <TableRecipes goal={"gain"} meal={meal}></TableRecipes>
+                                <TableRecipes goal={"gain"} meal={meal} pagination={true}></TableRecipes>
                             </TabsContent>
                             <TabsContent value="maintain">
-                                <TableRecipes goal={"maintain"} meal={meal}></TableRecipes>
+                                <TableRecipes goal={"maintain"} meal={meal} pagination={true}></TableRecipes>
                             </TabsContent>  
                             <TabsContent value="lose">
-                                <TableRecipes goal={"lose"} meal={meal}></TableRecipes>
+                                <TableRecipes goal={"lose"} meal={meal} pagination={true}></TableRecipes>
                             </TabsContent>
                         </Card>
                     </Tabs>

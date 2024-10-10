@@ -98,7 +98,7 @@ export default function New() {
             <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
                 <Header />
                 <main className="grid flex-1 gap-4 overflow-auto p-4 md:grid-cols-2 lg:grid-cols-3">
-                    <div className="relative hidden flex-col items-start gap-8 md:flex">
+                    <div className="relative   flex-col items-start gap-8  ">
                         <div className="grid w-full items-start gap-6">
                             <fieldset className="grid gap-6 rounded-lg border p-4">
                                 <legend className="-ml-1 px-1 text-sm font-medium">
@@ -168,7 +168,7 @@ export default function New() {
                                             Discard
                                         </Button>
                                         <Button
-                                            className="w-24 py-2 font-bold bg-accent hover:bg-strongAccent rounded-lg text-black text-sm"
+                                            className="w-24 py-2 font-bold bg-primary hover:bg-primary rounded-lg text-black text-sm"
                                             onClick={handleGenerateClick}
                                         >
                                             Generate
