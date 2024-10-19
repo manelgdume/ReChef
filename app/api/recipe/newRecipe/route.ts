@@ -5,7 +5,8 @@ import { ChatOpenAI } from '@langchain/openai';
 import User from '@/app/models/User';
 
 const chatModel = new ChatOpenAI({
-    apiKey: process.env.OPENAI
+    apiKey: process.env.OPENAI,
+    timeout: 100000
 });
 
 export async function POST(req: Request) {
