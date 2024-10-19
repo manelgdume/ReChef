@@ -44,6 +44,7 @@ import { useAuth } from "@clerk/nextjs"
 import axios from "axios"
 import TableRecipes from "./components/tableRecipes"
 import { capitalize } from "@/lib/utils"
+import { Recipe } from "../interfaces/Recipe"
 
 interface Ingredient{
   ingredient:string;
@@ -56,7 +57,7 @@ export const description =
 export default function Dashboard() {
   const { userId } = useAuth();
   const [loading, setLoading] = useState<boolean>(true);
-  const [lastRecipe, setLastRecipe] = useState<any>({});
+  const [lastRecipe, setLastRecipe] = useState<Recipe>();
   const [pageRecipe, setPageRecipe] = useState<number>(1);
   const [totalRecipes, setTotalRecipes] = useState<number>(0);
   useEffect(() => {

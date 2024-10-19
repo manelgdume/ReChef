@@ -6,7 +6,10 @@ import { FaUtensils,FaBullseye } from "react-icons/fa6";
 import Sidebar from "@/app/dashboard/components/sidebar";
 import Header from "@/app/dashboard/components/header";
 import { Recipe } from "@/app/interfaces/Recipe";
-
+interface Ingredient{
+    ingredient:string;
+    quantity:string;
+}
 export default function Page({ params }: Readonly<{ params: { id: string } }>) {
     const id = params.id;
     const [recipe, setRecipe] = useState<Recipe>();
@@ -71,7 +74,7 @@ export default function Page({ params }: Readonly<{ params: { id: string } }>) {
                             <section className="mb-8">
                                 <h2 className="font-semibold mb-4">Ingredients</h2>
                                 <ul className="list-disc pl-5">
-                                    {recipe.ingredients.map((ingredient: any, index: number) => (
+                                    {recipe.ingredients.map((ingredient: Ingredient, index: number) => (
                                         <li key={index} className="mt-2">
                                             {ingredient.ingredient} - <span>{ingredient.quantity}</span>
                                         </li>
