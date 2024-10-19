@@ -50,8 +50,7 @@ export default function New() {
         if (isCompleted()) {
             try {
                 setLoading(true)
-                const response = await axios.post(
-                    "http://localhost:3000/api/recipe/newRecipe",
+                const response = await axios.post("/api/recipe/newRecipe",
                     {
                         params: { userId, meal, goal, ingredients },
                     }

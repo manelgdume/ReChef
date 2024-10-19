@@ -10,7 +10,7 @@ export async function POST(req: Request) {
         const page = body.params.page
         const userID = body.params.userID;
         const lastRecipe = await Recipe.findOne({ creatorID: userID }).sort({ _id: -1 }).skip(page).exec();
-        const counts = 1
+        const counts = await Recipe.countDocuments({ creatorID: userID })
  
         if (!lastRecipe) {
             return NextResponse.json({ error: 'Receta no encontrada' }, { status: 404 });
