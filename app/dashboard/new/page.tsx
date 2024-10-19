@@ -19,7 +19,8 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import { cn } from "@/lib/utils";
+import { capitalize, cn } from "@/lib/utils";
+import { Recipe } from "@/app/interfaces/Recipe";
 
 interface Ingredient{
     ingredient:string;
@@ -33,18 +34,13 @@ export default function New() {
     const [goal, setGoal] = useState("");
     const [tried, setTried] = useState(false);
     const [ingredients, setIngredients] = useState("");
-    const [recipe, setRecipe] = useState<any>();
+    const [recipe, setRecipe] = useState<Recipe>();
     const [recipeGenerated, setRecipeGenerated] = useState(false);
     const { toast } = useToast();
 
     useEffect(() => {
         if (recipe?.name) setRecipeGenerated(true);
     }, [recipe]);
-
-    const capitalize = useCallback(
-        (s: string) => s.charAt(0).toUpperCase() + s.slice(1),
-        []
-    );
 
     const isCompleted = useCallback(() => meal !== "" && goal !== "", [meal, goal]);
 
@@ -230,7 +226,7 @@ export default function New() {
                                         <div>
                                             <h3 className="font-semibold">Instructions</h3>
                                             <ol className="list-decimal pl-5 text-sm">
-                                                {recipe.instructions.map(
+                                                {recipe?.instructions.map(
                                                     (instruction: string, index: number) => (
                                                         <li key={index}>{instruction}</li>
                                                     )
