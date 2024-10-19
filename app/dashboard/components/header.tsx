@@ -13,10 +13,11 @@ import React, { useEffect, useState } from "react";
 
 export default function Header() {
   const pathname = usePathname();
-  const arrPathname = pathname.split('/');
+
   const [breadcrumb, setBreadcrumb] = useState<string[]>();
 
   useEffect(() => {
+    const arrPathname = pathname.split('/');
     const updatedBreadcrumb = arrPathname.slice(1);
     if (updatedBreadcrumb.length > 3) {
       updatedBreadcrumb.pop();

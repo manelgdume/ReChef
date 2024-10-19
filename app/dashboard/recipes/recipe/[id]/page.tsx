@@ -5,10 +5,11 @@ import { useEffect, useState } from "react";
 import { FaUtensils,FaBullseye } from "react-icons/fa6";
 import Sidebar from "@/app/dashboard/components/sidebar";
 import Header from "@/app/dashboard/components/header";
+import { Recipe } from "@/app/interfaces/Recipe";
 
 export default function Page({ params }: Readonly<{ params: { id: string } }>) {
     const id = params.id;
-    const [recipe, setRecipe] = useState<any>(null);
+    const [recipe, setRecipe] = useState<Recipe>();
 
     const capitalize = (s: string) => {
         return s.charAt(0).toUpperCase() + s.slice(1);

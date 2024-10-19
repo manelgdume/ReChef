@@ -21,6 +21,11 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 
+interface Ingredient{
+    ingredient:string;
+    quantity:string
+}
+
 export default function New() {
     const { userId } = useAuth();
     const [loading, setLoading] = useState(false);
@@ -214,7 +219,7 @@ export default function New() {
                                         <div>
                                             <h3 className="font-semibold">Ingredients</h3>
                                             <ul className="list-disc pl-5 text-sm">
-                                                {recipe?.ingredients.map((ingredient: any, index: number) => (
+                                                {recipe?.ingredients.map((ingredient: Ingredient, index: number) => (
                                                     <li key={index}>
                                                         {ingredient.ingredient} -{" "}
                                                         <span>{ingredient.quantity}</span>

@@ -58,7 +58,7 @@ export default function TableRecipes({ meal, goal, pagination }: Readonly<TableR
   
     const filterGoal = goal;
     const paginationBool = pagination;
-    let filterMeal = meal;
+    const filterMeal = meal;
   
     useEffect(() => {
       getRecipes(1, true);

@@ -137,7 +137,7 @@ const Home = () => {
             <AccordionItem value="item-3" className="border border-grey-600 rounded-md px-4 bg-greyWhite mb-4">
               <AccordionTrigger>How accurate are the nutritional insights provided?</AccordionTrigger>
               <AccordionContent>
-                The nutritional information is calculated based on standard ingredient data. While highly accurate, it"s always a good idea to cross-check with a nutritionist for personalized advice.
+                The nutritional information is calculated based on standard ingredient data. While highly accurate, its always a good idea to cross-check with a nutritionist for personalized advice.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-5" className="border border-grey-600 rounded-md px-4 bg-greyWhite mb-4">
