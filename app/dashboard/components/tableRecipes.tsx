@@ -90,6 +90,8 @@ export default function TableRecipes({ meal, goal, pagination }: any) {
     const [recipes, setRecipes] = useState<any>(undefined);
     const [loading, setLoading] = useState<boolean>(true);
     const [pages, setPages] = useState<any>(undefined);
+    const [page, setPage] = useState<number>(0);
+    const [lastPage, setLastPage] = useState<number>(0);
     const filterGoal = goal
     const paginationBool = pagination
     let filterMeal = meal
@@ -100,17 +102,42 @@ export default function TableRecipes({ meal, goal, pagination }: any) {
     useEffect(() => {
         getRecipes(1, true)
     }, []);
-    const getPages = (counts: number) => {
-        return Math.ceil(counts / 7);
-    }
+    const getPages = (counts: number, currentPage: number) => {
+        const totalPages = Math.ceil(counts / 7);
+        setLastPage(totalPages)
+        const visiblePages = [];
+       
+        if (totalPages <= 7) {
+            for (let i = 1; i <= totalPages; i++) {
+                visiblePages.push(i);
+            }
+        } else {
+            if (currentPage <= 4) {
+                for (let i = 1; i <= 7; i++) {
+                    visiblePages.push(i);
+                }
+            }
+            else if (currentPage >= totalPages - 3) {
+                for (let i = totalPages - 6; i <= totalPages; i++) {
+                    visiblePages.push(i);
+                }
+            }
+            else {
+                for (let i = currentPage - 3; i <= currentPage + 3; i++) {
+                    visiblePages.push(i);
+                }
+            }
+        }
+        return visiblePages;
+    };
+ 
     const capitalize = (str: string) => {
         if (!str) return str;
         return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
-    }
-
+    };
 
     const getRecipes = async (page: number, getCounts: boolean) => {
-
+        setLoading(true)
         let p = {
             getCounts: getCounts,
             userID: userId,
@@ -143,16 +170,28 @@ export default function TableRecipes({ meal, goal, pagination }: any) {
             const data = await response.json();
 
             if (data.counts) {
-                const p = Array.from({ length: getPages(data.counts) }, (_, i) => i + 1);
-                setPages(p)
+                const p = getPages(data.counts, page);  // Calcula las páginas con la lógica actualizada
+                
+                setPages(p);
             }
 
-            setRecipes(data.recipes)
-
+            setRecipes(data.recipes);
+            setPage(page);  // Actualiza la página actual
+            setLoading(false)
         } catch (error) {
+            setLoading(false)
+            setRecipes(undefined);
             console.error('Error al obtener recetas:', error);
         }
+    };
+
+    const changePage = (page: number) => {
+        if(page>0 && page< lastPage +1){
+            getRecipes(page, false)
+            setPage(page)
+        }
     }
+
     const deleteRecipe = async (id: string) => {
         try {
             const response = await fetch('/api/recipe/deleteRecipe', {
@@ -178,7 +217,8 @@ export default function TableRecipes({ meal, goal, pagination }: any) {
             console.error('Error al obtener recetas:', error);
         }
     }
-    if (!recipes) {
+
+    if (!recipes && loading) {
         return <CardContent>
             <Table  >
                 <TableHeader>
@@ -200,20 +240,21 @@ export default function TableRecipes({ meal, goal, pagination }: any) {
                     {[...Array(7)].map((_, index) => (
                         <TableRow key={index}>
                             <TableCell className="font-medium hover:underline">
-                                <Skeleton className="w-[100px] h-[10px] rounded-full bg-gray-100" />
-                                <Skeleton className="w-[50px] h-[10px] rounded-full mt-2 bg-gray-100" />
+                                <Skeleton className="w-[100px] h-[0.75rem] rounded-full bg-gray-100" />
+                                <Skeleton className="w-[50px] h-[0.75rem] rounded-full mt-2 bg-gray-100" />
                             </TableCell>
                             <TableCell>
-                                <Skeleton className="w-[50px] h-[10px] rounded-full bg-gray-100" />
+                                <Skeleton className="w-[50px] h-[0.75rem] rounded-full bg-gray-100" />
+                            </TableCell>
+
+                            <TableCell className="hidden md:table-cell">
+                                <Skeleton className="w-[60px] h-[0.75rem]  rounded-full bg-gray-100" />
                             </TableCell>
                             <TableCell className="hidden md:table-cell">
-                                <Skeleton className="w-[60px] h-[10px] rounded-full bg-gray-100" />
-                            </TableCell>
-                            <TableCell className="hidden md:table-cell">
-                                <Skeleton className="w-[300px] h-[10px] rounded-full bg-gray-100" />
+                                <Skeleton className="w-[300px] h-[0.75rem] rounded-full bg-gray-100" />
                             </TableCell>
                             <TableCell>
-                                <Skeleton className="w-[50px] h-[10px] rounded-full bg-gray-100" />
+                                <Skeleton className="w-[50px] h-[0.75rem] rounded-full bg-gray-100" />
                             </TableCell>
                         </TableRow>
                     ))}
@@ -221,6 +262,7 @@ export default function TableRecipes({ meal, goal, pagination }: any) {
             </Table>
         </CardContent>;
     }
+ 
 
     return (
         <CardContent>
@@ -270,7 +312,6 @@ export default function TableRecipes({ meal, goal, pagination }: any) {
                                         </DropdownMenuTrigger>
                                         <DropdownMenuContent align="end">
                                             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                                            <DropdownMenuItem>Edit</DropdownMenuItem>
                                             <AlertDialog>
                                                 <AlertDialogTrigger className="text-sm py-1.5 px-2 rounded-sm">Delete</AlertDialogTrigger>
                                                 <AlertDialogContent>
@@ -299,22 +340,21 @@ export default function TableRecipes({ meal, goal, pagination }: any) {
                 <Pagination className="mt-4">
                     <PaginationContent>
                         <PaginationItem>
-                            <PaginationPrevious href="#" />
+                            <PaginationPrevious className="cursor-pointer" onClick={() => changePage(page-1)} />
                         </PaginationItem>
                         {pages?.map((i: any) => (
                             <PaginationItem className="shadow-transparent" key={i}>
-                                <Button className="bg-background shadow-transparent hover:bg-accent" onClick={() => getRecipes(i, false)}>{i}</Button>
+                                <Button className={`${i === page ? 'bg-accent ' : 'bg-background'
+                                    } shadow-transparent hover:bg-accent`} onClick={() => changePage(i)}>{i}</Button>
                             </PaginationItem>
                         ))}
                         <PaginationItem>
-                            <PaginationNext href="#" />
+                            <PaginationNext className="cursor-pointer" onClick={() => changePage(page+1)} />
                         </PaginationItem>
                     </PaginationContent>
                 </Pagination>
             )
             }
-
-
         </CardContent>
 
     )

@@ -39,13 +39,16 @@ export default function Page({ params }: { params: { id: string } }) {
 
     if (!recipe) {
         return (
-            <div className="min-h-screen flex">
+            <div className="flex min-h-screen w-full flex-col bg-muted/40">
                 <Sidebar />
-                <main className="flex-1 bg-white p-8">
-                    <header className="mb-16">
-                        <h1 className="text-2xl font-semibold">Loading Recipe...</h1>
-                    </header>
-                </main>
+                <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
+                    <Header />
+                    <main className="flex-1 bg-white p-8">
+                        <header className="mb-16">
+                            <h1 className="text-2xl font-semibold">Loading Recipe...</h1>
+                        </header>
+                    </main> 
+                </div>
             </div>
         );
     }

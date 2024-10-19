@@ -25,7 +25,6 @@ const Header = () => {
                 <div className="flex gap-16 text-sm items-center">
                     <a className="link-underline cursor-pointer">Home</a>
                     <a className="link-underline cursor-pointer">Features</a>
-                    <a className="link-underline cursor-pointer">Pricing</a>
                     <a className="link-underline cursor-pointer">Contact</a>
                     <SignedIn >
                     <button onClick={handleClick} className="items-center py-2 px-2 font-bold bg-primary rounded-lg text-black text-sm">

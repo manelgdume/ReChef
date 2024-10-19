@@ -15,7 +15,8 @@ export async function POST(req: Request) {
         if (!user) {
             const userData = {
                 idClerk: userID,
-                recipesGenerated: 0
+                recipesGenerated: 0,
+                subActive:true
             }
             const newUser = new User(userData);
             await newUser.save(); 

@@ -9,7 +9,6 @@ export async function POST(req: Request) {
         await connectDB();
         const page = body.params.page
         const userID = body.params.userID;
-        console.log(body)
         const lastRecipe = await Recipe.findOne({ creatorID: userID }).sort({ _id: -1 }).skip(page).exec();
         const counts = await Recipe.countDocuments({ creatorID: userID })
  

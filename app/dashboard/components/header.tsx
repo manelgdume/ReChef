@@ -10,16 +10,22 @@ import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuLab
 import { PanelLeft, Package2, Home, ShoppingCart, Package, Users2, LineChart, Search, Utensils, PlusCircle, Settings } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 
 
 export default function Header() {
-  const pathname = usePathname()
-  const arrPathname = pathname.split('/')
+  const pathname = usePathname();
+  const arrPathname = pathname.split('/');
+  const [breadcrumb, setBreadcrumb] = useState<any>();
 
-  const [breadcrumb, setBreadCrummb] = useState(arrPathname.slice(1));
-  console.log(breadcrumb)
+  useEffect(() => {
+    let updatedBreadcrumb = arrPathname.slice(1);
+    if (updatedBreadcrumb.length > 3) {
+      updatedBreadcrumb.pop(); // Elimina el último valor del array
+    }
+    setBreadcrumb(updatedBreadcrumb);
+  }, [pathname]);
   return (
     <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
       <Sheet >
@@ -59,13 +65,7 @@ export default function Header() {
               <PlusCircle className="h-5 w-5" />
               New recipe
             </Link>
-            <Link
-              href="/dashboard/settings"
-              className="flex items-center gap-4 px-2.5 "
-            >
-              <Settings className="h-5 w-5" />
-              Settings
-            </Link>
+ 
           </nav>
         </SheetContent>
       </Sheet>
@@ -82,12 +82,7 @@ export default function Header() {
         </BreadcrumbList>
       </Breadcrumb>
       <div className="relative ml-auto flex-1 md:grow-0">
-        <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-        <Input
-          type="search"
-          placeholder="Search..."
-          className="w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[336px]"
-        />
+ 
       </div>
       <UserButton />
     </header>

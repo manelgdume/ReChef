@@ -100,7 +100,6 @@ export default function Dashboard() {
   }, [pageRecipe])
   const handlePage = (page: number) => {
     if (page > 0 && page < totalRecipes) {
-      console.log('hola')
       setPageRecipe(page)
     }
   }
@@ -127,7 +126,6 @@ export default function Dashboard() {
       }
 
       const data = await response.json();
-      console.log(data)
       setLastRecipe(data.lastRecipe)
       setTotalRecipes(data.counts)
     } catch (error) {
@@ -146,7 +144,7 @@ export default function Dashboard() {
         throw new Error('Error en la solicitud: ' + response);
       }
 
-
+      console.log(response)
     } catch (error) {
       console.error('Error al obtener recetas:', error);
     }
@@ -197,8 +195,8 @@ export default function Dashboard() {
               </Card>
               <Card x-chunk="dashboard-05-chunk-2">
                 <CardHeader className="pb-2">
-                  <CardDescription>This Month</CardDescription>
-                  <CardTitle className="text-4xl">40</CardTitle>
+                  <CardDescription>Total</CardDescription>
+                  <CardTitle className="text-4xl">{totalRecipes}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-xs text-muted-foreground">

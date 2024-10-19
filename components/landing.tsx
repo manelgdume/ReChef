@@ -1,3 +1,5 @@
+'use client'
+
 import Head from 'next/head';
 import { Button } from "@/components/ui/button"; // ShadCN Button
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"; // ShadCN Card
@@ -8,9 +10,13 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion"
 import Image from 'next/image';
- import { FaCheck,FaXmark } from "react-icons/fa6";
+import { FaCheck, FaXmark } from "react-icons/fa6";
 import Header from './headerLanding';
+import { loadStripe } from '@stripe/stripe-js';
+import axios from 'axios';
+
 const Home = () => {
+ 
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
@@ -117,213 +123,87 @@ const Home = () => {
 
           </div>
         </div>
-        <div id='section' className='grid items-center justify-items-center px-16 py-16 max-w-screen-xl mx-auto' >
-          <h3 className=' text-2xl font-bold justify-center'>Pricing</h3>
-          <p className='mt-4 text-sm font-semibold'>Choose the perfect plan for your culinary journey powered by AI.</p>
-          <div className='flex gap-4 mt-8'>
-            <div className='grid rounded-md border border-grey-600 p-4 '>
-              <p className='font-bold text-orange'>Free Starter Package</p>
-              <p className='mt-4'><span className='font-bold text-2xl '>0$ </span>per month</p>
-              <p className='mt-4 text-md'>For personal use</p>
-              <span className='h-px border mt-4 '></span>
-              <div className='grid mt-2 font-semibold text-sm items-center '>
-                <span className='flex gap-2 items-center  mt-4 w-64'>
-                  <div className='rounded-full border border-green p-1 items-center'>
-                    <FaCheck color="#EB801D" />
-                  </div>Generate 2 recipes
-                </span>
-                <span className='flex gap-2 items-center mt-4 w-64'>
-                  <div className='rounded-full border border-green p-1 items-center'
-                  ><FaCheck color="#EB801D" />
-                  </div> Customizable ingredients
-                </span>
-                <span className='flex gap-2 items-center mt-4 w-64'>
-                  <div className='rounded-full border border-green p-1 items-center'>
-                    <FaXmark color="#EB801D" />
-                  </div> AI-driven suggestions
-                </span>
-                <span className='flex gap-2 items-center mt-4 w-64'>
-                  <div className='rounded-full border border-green p-1 items-center'>
-                    <FaXmark color="#EB801D" />
-                  </div> Weekly meal suggestions
-                </span>
-                <span className='flex gap-2 items-center mt-4 w-64'>
-                  <div className='rounded-full border border-green p-1 items-center'>
-                    <FaXmark color="#EB801D" />
-                  </div> Advanced features
-                </span>
-                <span className='flex gap-2 items-center mt-4 w-64'>
-                  <div className='rounded-full border border-green p-1 items-center'>
-                    <FaXmark color="#EB801D" />
-                  </div> Flexible subscription models
-                </span>
-                <button className='mt-8 items-center p-2 font-bold bg-white border rounded-lg text-black text-sm w-64'><span>Get Started</span></button>
-              </div>
-            </div>
-            <div className='grid rounded-md border border-grey-600 p-4 '>
-              <p className='font-bold text-accent'>Pro Package</p>
-              <p className='mt-4'><span className='font-bold text-2xl '>15$ </span>per month</p>
-              <p className='mt-4 text-md'>For personal use</p>
-              <span className='h-px border mt-4 '></span>
-              <div className='grid mt-2 font-semibold text-sm items-center '>
-                <span className='flex gap-2 items-center  mt-4 w-64'>
-                  <div className='rounded-full border border-green p-1 items-center'>
-                    <FaCheck color="#EB801D" />
-                  </div>Generate unlimited recipe
-                </span>
-                <span className='flex gap-2 items-center mt-4 w-64'>
-                  <div className='rounded-full border border-green p-1 items-center'
-                  ><FaCheck color="#EB801D" />
-                  </div> Customizable ingredients
-                </span>
-                <span className='flex gap-2 items-center mt-4 w-64'>
-                  <div className='rounded-full border border-green p-1 items-center'>
-                    <FaCheck color="#EB801D" />
-                  </div> AI-driven suggestions
-                </span>
-                <span className='flex gap-2 items-center mt-4 w-64'>
-                  <div className='rounded-full border border-green p-1 items-center'>
-                    <FaCheck color="#EB801D" />
-                  </div> Weekly meal suggestions
-                </span>
-                <span className='flex gap-2 items-center mt-4 w-64'>
-                  <div className='rounded-full border border-green p-1 items-center'>
-                  <FaXmark color="#EB801D" />
-                  </div> Advanced features
-                </span>
-                <span className='flex gap-2 items-center mt-4 w-64'>
-                  <div className='rounded-full border border-green p-1 items-center'>
-                  <FaXmark color="#EB801D" />
-                  </div> Flexible subscription models
-                </span>
-                <button className='mt-8 items-center p-2 font-bold bg-primary rounded-lg text-black text-sm w-64'><span>Start Your Pro Trial</span></button>
-              </div>
-
-            </div>
-            <div className='grid rounded-md border border-grey-600 p-4 '>
-              <p className='font-bold text-black'>Enterprise Package</p>
-              <p className='mt-4'><span className='font-bold text-2xl '>Custom pricing</span> </p>
-              <p className='mt-4 text-md'>For large organizations</p>
-              <span className='h-px border mt-4 '></span>
-              <div className='grid mt-2 font-semibold text-sm items-center '>
-                <span className='flex gap-2 items-center  mt-4 w-64'>
-                  <div className='rounded-full border border-green p-1 items-center'>
-                    <FaCheck color="#EB801D" />
-                  </div>Generate unlimited recipes
-                </span>
-                <span className='flex gap-2 items-center mt-4 w-64'>
-                  <div className='rounded-full border border-green p-1 items-center'
-                  ><FaCheck color="#EB801D" />
-                  </div>Customizable ingredients
-                </span>
-                <span className='flex gap-2 items-center mt-4 w-64'>
-                  <div className='rounded-full border border-green p-1 items-center'>
-                    <FaCheck color="#EB801D" />
-                  </div>AI-driven suggestions
-                </span>
-                <span className='flex gap-2 items-center mt-4 w-64'>
-                  <div className='rounded-full border border-green p-1 items-center'>
-                    <FaCheck color="#EB801D" />
-                  </div> Weekly meal suggestions 
-                </span>
-                <span className='flex gap-2 items-center mt-4 w-64'>
-                  <div className='rounded-full border border-green p-1 items-center'>
-                    <FaCheck color="#EB801D" />
-                  </div> Advanced features
-                </span>
-                <span className='flex gap-2 items-center mt-4 w-64'>
-                  <div className='rounded-full border border-green p-1 items-center'>
-                    <FaCheck color="#EB801D" />
-                  </div> Flexible subscription models
-                </span>
-                <button className='mt-8 items-center p-2 font-bold bg-white rounded-lg border   text-black text-sm w-64'><span>Contact Us For Pricing</span></button>
-              </div>
-
-            </div>
-          </div>
-
-        </div>
-
-        <div id='faq' className='grid items-center justify-items-center px-16 py-16 max-w-screen-xl mx-auto  ' >
+        <div id='faq' className='grid items-center justify-items-center px-16 py-16 max-w-screen-xl mx-auto'>
           <h3 className='text-2xl font-bold mt-4'>Frequently Asked Questions</h3>
           <p className='text-sm font-semibold mt-4'>Your Questions Answered</p>
           <Accordion type="single" collapsible className="w-full px-4 mt-16">
-            <AccordionItem value="item-1" className="border border-grey-600 rounded-md px-4 bg-greyWhite mb-4" >
-              <AccordionTrigger>Is it accessible?</AccordionTrigger>
+            <AccordionItem value="item-1" className="border border-grey-600 rounded-md px-4 bg-greyWhite mb-4">
+              <AccordionTrigger>Is the service free to use?</AccordionTrigger>
               <AccordionContent>
-                Yes. It adheres to the WAI-ARIA design pattern.
+                We offer a free limited plan for the moment. The free plan includes all features but with restricted usage.
               </AccordionContent>
             </AccordionItem>
-            <AccordionItem value="item-1" className="border border-grey-600 rounded-md px-4 bg-greyWhite mb-4" >
-              <AccordionTrigger>Is it accessible?</AccordionTrigger>
+            <AccordionItem value="item-2" className="border border-grey-600 rounded-md px-4 bg-greyWhite mb-4">
+              <AccordionTrigger>Can I customize recipes based on my dietary preferences?</AccordionTrigger>
               <AccordionContent>
-                Yes. It adheres to the WAI-ARIA design pattern.
+                Yes, our AI allows you to tailor recipes to your specific dietary needs, whether you are vegan, gluten-free, keto, or have other preferences.
               </AccordionContent>
             </AccordionItem>
-            <AccordionItem value="item-1" className="border border-grey-600 rounded-md px-4 bg-greyWhite mb-4" >
-              <AccordionTrigger>Is it accessible?</AccordionTrigger>
+            <AccordionItem value="item-3" className="border border-grey-600 rounded-md px-4 bg-greyWhite mb-4">
+              <AccordionTrigger>How accurate are the nutritional insights provided?</AccordionTrigger>
               <AccordionContent>
-                Yes. It adheres to the WAI-ARIA design pattern.
+                The nutritional information is calculated based on standard ingredient data. While highly accurate, it's always a good idea to cross-check with a nutritionist for personalized advice.
               </AccordionContent>
             </AccordionItem>
-            <AccordionItem value="item-1" className="border border-grey-600 rounded-md px-4 bg-greyWhite mb-4" >
-              <AccordionTrigger>Is it accessible?</AccordionTrigger>
+            <AccordionItem value="item-5" className="border border-grey-600 rounded-md px-4 bg-greyWhite mb-4">
+              <AccordionTrigger>Is my data secure?</AccordionTrigger>
               <AccordionContent>
-                Yes. It adheres to the WAI-ARIA design pattern.
+                Yes, we take your privacy and data security seriously. We adhere to strict security protocols and are fully compliant with GDPR and other relevant regulations.
               </AccordionContent>
             </AccordionItem>
           </Accordion>
-
         </div>
+
         <div className='max-w-screen-xl mx-auto px-16 pt-16'>
           <div className='  border-t border-grey-600'></div>
         </div>
-        <div id='footer' className='grid grid-cols-4	 items-center justify-items-start px-16 pt-8 pb-16 max-w-screen-xl mx-auto'>
-          <div className='grid mt-0 pt-0 gap-2 '>
-            <h4 className='font-semibold	text-slate-600 '>Features</h4>
-            <p className='font-medium' >Personalized Recipes</p>
-            <p className='font-medium'>Nutritional Insights</p>
-            <p className='font-medium'>Smart Meal Planning</p>
-            <p className='font-medium'>User-Friendly Interface</p>
-            <p className='font-medium'>24/7 Support</p>
+        <div id='footer' className='grid grid-cols-4 items-center justify-items-start px-16 pt-8 pb-16 max-w-screen-xl mx-auto'>
+          <div className='grid mt-0 pt-0 gap-2'>
+            <h4 className='font-semibold text-slate-600 '>Explore</h4>
+            <p className='font-medium'>Features</p>
+            <p className='font-medium'>How it Works</p>
+            <p className='font-medium'>Pricing</p>
+            <p className='font-medium'>Recipes</p>
+            <p className='font-medium'>Blog</p>
           </div>
           <div className='grid mt-0 pt-0 gap-2'>
-            <h4 className='font-semibold	text-slate-600 '>Features</h4>
-            <p className='font-medium' >Personalized Recipes</p>
-            <p className='font-medium'>Nutritional Insights</p>
-            <p className='font-medium'>Smart Meal Planning</p>
-            <p className='font-medium'>User-Friendly Interface</p>
-            <p className='font-medium'>24/7 Support</p>
+            <h4 className='font-semibold text-slate-600 '>Support</h4>
+            <p className='font-medium'>Help Center</p>
+            <p className='font-medium'>FAQs</p>
+            <p className='font-medium'>Privacy Policy</p>
+            <p className='font-medium'>Terms of Service</p>
+            <p className='font-medium'>Contact Us</p>
           </div>
           <div className='grid mt-0 pt-0 gap-2'>
-            <h4 className='font-semibold	text-slate-600 '>Features</h4>
-            <p className='font-medium' >Personalized Recipes</p>
-            <p className='font-medium'>Nutritional Insights</p>
-            <p className='font-medium'>Smart Meal Planning</p>
-            <p className='font-medium'>User-Friendly Interface</p>
-            <p className='font-medium'>24/7 Support</p>
+            <h4 className='font-semibold text-slate-600 '>Company</h4>
+            <p className='font-medium'>About Us</p>
+            <p className='font-medium'>Careers</p>
+            <p className='font-medium'>Press</p>
+            <p className='font-medium'>Affiliates</p>
+            <p className='font-medium'>Sustainability</p>
           </div>
           <div className='grid mt-0 pt-0 gap-2'>
-            <h4 className='font-semibold	text-slate-600 '>Features</h4>
-            <p className='font-medium' >Personalized Recipes</p>
-            <p className='font-medium'>Nutritional Insights</p>
-            <p className='font-medium'>Smart Meal Planning</p>
-            <p className='font-medium'>User-Friendly Interface</p>
-            <p className='font-medium'>24/7 Support</p>
+            <h4 className='font-semibold text-slate-600 '>Stay Connected</h4>
+            <p className='font-medium'>Newsletter</p>
+            <p className='font-medium'>Follow us on Twitter</p>
+            <p className='font-medium'>Follow us on Instagram</p>
+            <p className='font-medium'>Follow us on Facebook</p>
+            <p className='font-medium'>LinkedIn</p>
           </div>
           <div className='grid mt-8 col-span-full'>
-          <div className="flex items-center">
-                    <Image
-                        src={'/logoipsum-265.svg'}
-                        alt="Descripción de la imagen"
-                        width={40}
-                        height={40}
-                    />
-                    <h1 className="ml-4 text-xl font-bold">ReChef</h1>
-                </div>
-            <p className='mt-4 '>© 2023 AI Recipe Creator. All Rights Reserved.</p>
-          </div>
+            <div className="flex items-center">
+              <Image
+                src={'/logoipsum-265.svg'}
+                alt="Descripción de la imagen"
+                width={40}
+                height={40}
+              />
+              <h1 className="ml-4 text-xl font-bold">ReChef</h1>
+            </div>
+            <p className='mt-4'>© 2023 AI Recipe Creator. All Rights Reserved.</p>
+           </div>
         </div>
+
 
       </div>
 
