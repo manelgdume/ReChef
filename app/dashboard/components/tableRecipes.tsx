@@ -1,55 +1,21 @@
 "use client"
-
-import Sidebar from "./sidebar";
-import Header from "./header";
-
-import Image from "next/image"
-import Link from "next/link"
+ 
 import {
-    File,
-    Home,
-    LineChart,
-    ListFilter,
     MoreHorizontal,
-    Package,
-    Package2,
-    PanelLeft,
-    PlusCircle,
-    Search,
-    Settings,
-    ShoppingCart,
-    Users2,
 } from "lucide-react"
 
 import { Badge } from "@/components/ui/badge"
-import {
-    Breadcrumb,
-    BreadcrumbItem,
-    BreadcrumbLink,
-    BreadcrumbList,
-    BreadcrumbPage,
-    BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
+ 
 import { Button } from "@/components/ui/button"
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card"
+import {CardContent} from "@/components/ui/card"
 import {
     DropdownMenu,
-    DropdownMenuCheckboxItem,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
+     DropdownMenuContent,
+     DropdownMenuLabel,
+     DropdownMenuTrigger,
+ 
 } from "@/components/ui/dropdown-menu"
-import { Input } from "@/components/ui/input"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+ 
 import {
     Table,
     TableBody,
@@ -58,18 +24,8 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
-import {
-    Tabs,
-    TabsContent,
-    TabsList,
-    TabsTrigger,
-} from "@/components/ui/tabs"
-import {
-    Tooltip,
-    TooltipContent,
-    TooltipTrigger,
-} from "@/components/ui/tooltip"
-import { Pagination, PaginationContent, PaginationItem, PaginationPrevious, PaginationLink, PaginationEllipsis, PaginationNext } from "@/components/ui/pagination";
+ 
+import { Pagination, PaginationContent, PaginationItem, PaginationPrevious, PaginationNext } from "@/components/ui/pagination";
 import { useAuth } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
 import {
@@ -84,6 +40,7 @@ import {
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { Skeleton } from "@/components/ui/skeleton";
+import Link from "next/link"
 
 export default function TableRecipes({ meal, goal, pagination }: any) {
     const { userId } = useAuth();
@@ -104,31 +61,29 @@ export default function TableRecipes({ meal, goal, pagination }: any) {
     }, []);
     const getPages = (counts: number, currentPage: number) => {
         const totalPages = Math.ceil(counts / 7);
-        setLastPage(totalPages)
-        const visiblePages = [];
-       
+        setLastPage(totalPages);
+    
+        const getPageRange = (start: number, end: number) => {
+            const pages = [];
+            for (let i = start; i <= end; i++) {
+                pages.push(i);
+            }
+            return pages;
+        };
+    
         if (totalPages <= 7) {
-            for (let i = 1; i <= totalPages; i++) {
-                visiblePages.push(i);
-            }
-        } else {
-            if (currentPage <= 4) {
-                for (let i = 1; i <= 7; i++) {
-                    visiblePages.push(i);
-                }
-            }
-            else if (currentPage >= totalPages - 3) {
-                for (let i = totalPages - 6; i <= totalPages; i++) {
-                    visiblePages.push(i);
-                }
-            }
-            else {
-                for (let i = currentPage - 3; i <= currentPage + 3; i++) {
-                    visiblePages.push(i);
-                }
-            }
+            return getPageRange(1, totalPages);
         }
-        return visiblePages;
+    
+        if (currentPage <= 4) {
+            return getPageRange(1, 7);
+        }
+    
+        if (currentPage >= totalPages - 3) {
+            return getPageRange(totalPages - 6, totalPages);
+        }
+    
+        return getPageRange(currentPage - 3, currentPage + 3);
     };
  
     const capitalize = (str: string) => {
@@ -138,14 +93,6 @@ export default function TableRecipes({ meal, goal, pagination }: any) {
 
     const getRecipes = async (page: number, getCounts: boolean) => {
         setLoading(true)
-        let p = {
-            getCounts: getCounts,
-            userID: userId,
-            page: page,
-            goal: filterGoal,
-            meal: filterMeal
-        }
-
         try {
             const response = await fetch('/api/recipes/getRecipesFiltered', {
                 method: 'POST',

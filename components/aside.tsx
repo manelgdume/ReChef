@@ -1,25 +1,9 @@
 "use client"
 
-import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from "next/navigation";
-import { FaHouse, FaList, FaUtensils, FaGear } from 'react-icons/fa6';
-import Home from './landing';
+import { FaHouse, FaList } from 'react-icons/fa6';
 import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip';
-
 export default function Sidebar() {
-    const router = useRouter();
-
-    const handleClickDashboard = () => {
-        router.push('/dashboard');
-    };
-
-    const handleClickNew = () => {
-        router.push('/dashboard/new');
-    };
-    const handleClickRecipes = () => {
-        router.push('/dashboard/recipes');
-    }
 
     return (
         <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-foreground sm:flex">
@@ -28,7 +12,7 @@ export default function Sidebar() {
                     href="#"
                     className="group flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:h-8 md:w-8 md:text-base"
                 >
-                     <span className="sr-only">Acme Inc</span>
+                    <span className="sr-only">Acme Inc</span>
                 </Link>
                 <Tooltip>
                     <TooltipTrigger asChild>

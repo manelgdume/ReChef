@@ -1,9 +1,7 @@
-import Ingredient from '@/app/models/Ingredients'; // Asegúrate de que esto esté configurado para tus ingredientes
-import Recipe from '@/app/models/Recipe'; // Asegúrate de tener un modelo de receta
-import connectDB from '@/lib/connectDB';
+ 
 import { NextResponse } from 'next/server';
 import { ChatOpenAI } from '@langchain/openai';
-import { useClerk } from '@clerk/nextjs';
+ 
 import User from '@/app/models/User';
 
 const chatModel = new ChatOpenAI({

@@ -2,20 +2,11 @@
 
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { FaUtensils } from "react-icons/fa6";
-import { FaBullseye } from "react-icons/fa6";
-import {
-    Breadcrumb,
-    BreadcrumbItem,
-    BreadcrumbLink,
-    BreadcrumbList,
-    BreadcrumbPage,
-    BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
+import { FaUtensils,FaBullseye } from "react-icons/fa6";
 import Sidebar from "@/app/dashboard/components/sidebar";
 import Header from "@/app/dashboard/components/header";
 
-export default function Page({ params }: { params: { id: string } }) {
+export default function Page({ params }: Readonly<{ params: { id: string } }>) {
     const id = params.id;
     const [recipe, setRecipe] = useState<any>(null);
 

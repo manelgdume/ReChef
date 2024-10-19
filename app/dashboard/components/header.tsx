@@ -1,18 +1,15 @@
 "use client"
 
-import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator, BreadcrumbPage } from "@/components/ui/breadcrumb";
+import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { SheetTrigger, SheetContent, Sheet } from "@/components/ui/sheet";
+ import { SheetTrigger, SheetContent, Sheet } from "@/components/ui/sheet";
 import { capitalize } from "@/lib/utils";
 import { UserButton } from "@clerk/nextjs";
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuItem } from "@radix-ui/react-dropdown-menu";
-import { PanelLeft, Package2, Home, ShoppingCart, Package, Users2, LineChart, Search, Utensils, PlusCircle, Settings } from "lucide-react";
+ import { PanelLeft, Package2, Home , Utensils, PlusCircle } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React, { useEffect } from "react";
-import { useState } from "react";
-
+import React, { useEffect,useState } from "react";
+ 
 
 export default function Header() {
   const pathname = usePathname();
@@ -22,7 +19,7 @@ export default function Header() {
   useEffect(() => {
     let updatedBreadcrumb = arrPathname.slice(1);
     if (updatedBreadcrumb.length > 3) {
-      updatedBreadcrumb.pop(); // Elimina el último valor del array
+      updatedBreadcrumb.pop();  
     }
     setBreadcrumb(updatedBreadcrumb);
   }, [pathname]);

@@ -1,6 +1,8 @@
 "use client"
-import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
+import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
+ 
 import Image from 'next/image';
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 const Header = () => {
@@ -23,9 +25,9 @@ const Header = () => {
                 </div>
 
                 <div className="flex gap-16 text-sm items-center">
-                    <a className="link-underline cursor-pointer">Home</a>
-                    <a className="link-underline cursor-pointer">Features</a>
-                    <a className="link-underline cursor-pointer">Contact</a>
+                    <Link href={"/"} className="link-underline cursor-pointer">Home</Link>
+                    <Link href={"/"} className="link-underline cursor-pointer">Features</Link>
+                    <Link href={"/"} className="link-underline cursor-pointer">Contact</Link>
                     <SignedIn >
                     <button onClick={handleClick} className="items-center py-2 px-2 font-bold bg-primary rounded-lg text-black text-sm">
                                 Dashboard

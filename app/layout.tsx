@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { ClerkProvider, SignedIn, SignedOut, SignIn, SignInButton, UserButton, useUser } from "@clerk/nextjs";
-import Header from "@/components/headerLanding";
+import { ClerkProvider, SignedIn, SignedOut } from "@clerk/nextjs";
 import Landing from "@/components/landing";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/toaster"

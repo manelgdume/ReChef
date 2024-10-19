@@ -1,8 +1,5 @@
 'use client'
 
-import Head from 'next/head';
-import { Button } from "@/components/ui/button"; // ShadCN Button
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"; // ShadCN Card
 import {
   Accordion,
   AccordionContent,
@@ -10,11 +7,9 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion"
 import Image from 'next/image';
-import { FaCheck, FaXmark } from "react-icons/fa6";
+ 
 import Header from './headerLanding';
-import { loadStripe } from '@stripe/stripe-js';
-import axios from 'axios';
-
+ 
 const Home = () => {
  
   return (

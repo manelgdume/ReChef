@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
-import { Input } from "@/components/ui/input";
+ 
 import {
     Select,
     SelectContent,
@@ -12,7 +12,6 @@ import {
 } from "@/components/ui/select";
 import { useAuth } from "@clerk/nextjs";
 import axios from "axios";
-import { useRouter } from "next/navigation";
 import { Save } from "lucide-react";
 import Sidebar from "../components/sidebar";
 import Header from "../components/header";
@@ -32,7 +31,6 @@ export default function New() {
     const [recipe, setRecipe] = useState<any>();
     const [recipeGenerated, setRecipeGenerated] = useState(false);
     const { toast } = useToast();
-    const router = useRouter();
 
     useEffect(() => {
         if (recipe?.name) setRecipeGenerated(true);
