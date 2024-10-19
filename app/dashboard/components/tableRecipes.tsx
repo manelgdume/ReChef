@@ -1,21 +1,21 @@
 "use client"
- 
+
 import {
     MoreHorizontal,
 } from "lucide-react"
 
 import { Badge } from "@/components/ui/badge"
- 
+
 import { Button } from "@/components/ui/button"
-import {CardContent} from "@/components/ui/card"
+import { CardContent } from "@/components/ui/card"
 import {
     DropdownMenu,
-     DropdownMenuContent,
-     DropdownMenuLabel,
-     DropdownMenuTrigger,
- 
+    DropdownMenuContent,
+    DropdownMenuLabel,
+    DropdownMenuTrigger,
+
 } from "@/components/ui/dropdown-menu"
- 
+
 import {
     Table,
     TableBody,
@@ -24,7 +24,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
- 
+
 import { Pagination, PaginationContent, PaginationItem, PaginationPrevious, PaginationNext } from "@/components/ui/pagination";
 import { useAuth } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
@@ -41,130 +41,133 @@ import {
 } from "@/components/ui/alert-dialog"
 import { Skeleton } from "@/components/ui/skeleton";
 import Link from "next/link"
+import { Recipe } from "@/app/interfaces/Recipe"
 
-export default function TableRecipes({ meal, goal, pagination }: any) {
+interface TableRecipesProps {
+    meal: string;
+    goal: string;
+    pagination: boolean;
+}
+export default function TableRecipes({ meal, goal, pagination }: Readonly<TableRecipesProps>) {
     const { userId } = useAuth();
-    const [recipes, setRecipes] = useState<any>(undefined);
+    const [recipes, setRecipes] = useState<Recipe[] | undefined>(undefined);
     const [loading, setLoading] = useState<boolean>(true);
-    const [pages, setPages] = useState<any>(undefined);
+    const [pages, setPages] = useState<number[]>([]);
     const [page, setPage] = useState<number>(0);
     const [lastPage, setLastPage] = useState<number>(0);
-    const filterGoal = goal
-    const paginationBool = pagination
-    let filterMeal = meal
-
+  
+    const filterGoal = goal;
+    const paginationBool = pagination;
+    let filterMeal = meal;
+  
     useEffect(() => {
-        getRecipes(1, true)
+      getRecipes(1, true);
     }, [filterMeal]);
+  
     useEffect(() => {
-        getRecipes(1, true)
+      getRecipes(1, true);
     }, []);
-    const getPages = (counts: number, currentPage: number) => {
-        const totalPages = Math.ceil(counts / 7);
-        setLastPage(totalPages);
-    
-        const getPageRange = (start: number, end: number) => {
-            const pages = [];
-            for (let i = start; i <= end; i++) {
-                pages.push(i);
-            }
-            return pages;
-        };
-    
-        if (totalPages <= 7) {
-            return getPageRange(1, totalPages);
+  
+    const getPages = (counts: number, currentPage: number): number[] => {
+      const totalPages = Math.ceil(counts / 7);
+      setLastPage(totalPages);
+  
+      const getPageRange = (start: number, end: number): number[] => {
+        const pagesArray = [];
+        for (let i = start; i <= end; i++) {
+          pagesArray.push(i);
         }
-    
-        if (currentPage <= 4) {
-            return getPageRange(1, 7);
-        }
-    
-        if (currentPage >= totalPages - 3) {
-            return getPageRange(totalPages - 6, totalPages);
-        }
-    
-        return getPageRange(currentPage - 3, currentPage + 3);
+        return pagesArray;
+      };
+  
+      if (totalPages <= 7) {
+        return getPageRange(1, totalPages);
+      }
+  
+      if (currentPage <= 4) {
+        return getPageRange(1, 7);
+      }
+  
+      if (currentPage >= totalPages - 3) {
+        return getPageRange(totalPages - 6, totalPages);
+      }
+  
+      return getPageRange(currentPage - 3, currentPage + 3);
     };
- 
-    const capitalize = (str: string) => {
-        if (!str) return str;
-        return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+  
+    const capitalize = (str: string): string => {
+      if (!str) return str;
+      return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
     };
-
-    const getRecipes = async (page: number, getCounts: boolean) => {
-        setLoading(true)
-        try {
-            const response = await fetch('/api/recipes/getRecipesFiltered', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    params: {
-                        getCounts: getCounts,
-                        userID: userId,
-                        page: page,
-                        goal: filterGoal,
-                        meal: filterMeal
-                    }
-                }),
-            });
-
-            if (!response.ok) {
-                throw new Error('Error en la solicitud: ' + response.statusText);
-            }
-
-            const data = await response.json();
-
-            if (data.counts) {
-                const p = getPages(data.counts, page);  // Calcula las páginas con la lógica actualizada
-                
-                setPages(p);
-            }
-
-            setRecipes(data.recipes);
-            setPage(page);  // Actualiza la página actual
-            setLoading(false)
-        } catch (error) {
-            setLoading(false)
-            setRecipes(undefined);
-            console.error('Error al obtener recetas:', error);
+  
+    const getRecipes = async (page: number, getCounts: boolean): Promise<void> => {
+      setLoading(true);
+      try {
+        const response = await fetch('/api/recipes/getRecipesFiltered', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            params: {
+              getCounts,
+              userID: userId,
+              page,
+              goal: filterGoal,
+              meal: filterMeal,
+            },
+          }),
+        });
+  
+        if (!response.ok) {
+          throw new Error('Error en la solicitud: ' + response.statusText);
         }
+  
+        const data = await response.json();
+  
+        if (data.counts) {
+          const p = getPages(data.counts, page); // Calculate pages with the updated logic
+          setPages(p);
+        }
+  
+        setRecipes(data.recipes);
+        setPage(page); // Update current page
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+        setRecipes(undefined);
+        console.error('Error al obtener recetas:', error);
+      }
     };
-
-    const changePage = (page: number) => {
-        if(page>0 && page< lastPage +1){
-            getRecipes(page, false)
-            setPage(page)
+  
+    const changePage = (newPage: number): void => {
+      if (newPage > 0 && newPage <= lastPage) {
+        getRecipes(newPage, false);
+        setPage(newPage);
+      }
+    };
+  
+    const deleteRecipe = async (id: string): Promise<void> => {
+      try {
+        const response = await fetch('/api/recipe/deleteRecipe', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            params: { id },
+          }),
+        });
+  
+        if (!response.ok) {
+          throw new Error('Error en la solicitud: ' + response.statusText);
+        } else {
+          setRecipes((prevRecipes) => prevRecipes?.filter((recipe) => recipe._id !== id));
         }
-    }
-
-    const deleteRecipe = async (id: string) => {
-        try {
-            const response = await fetch('/api/recipe/deleteRecipe', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    params: {
-                        id: id
-                    }
-                }),
-            });
-
-            if (!response.ok) {
-                throw new Error('Error en la solicitud: ' + response.statusText);
-            }
-            else {
-                recipes.filter((recipe: any) => recipe.id == id)
-            }
-
-        } catch (error) {
-            console.error('Error al obtener recetas:', error);
-        }
-    }
-
+      } catch (error) {
+        console.error('Error al eliminar receta:', error);
+      }
+    };
     if (!recipes && loading) {
         return <CardContent>
             <Table  >
@@ -209,7 +212,7 @@ export default function TableRecipes({ meal, goal, pagination }: any) {
             </Table>
         </CardContent>;
     }
- 
+
 
     return (
         <CardContent>
@@ -231,7 +234,7 @@ export default function TableRecipes({ meal, goal, pagination }: any) {
                 </TableHeader>
                 <TableBody>
                     {recipes != undefined && (
-                        Object.values(recipes).map((recipe: any, index: number) => (
+                        Object.values(recipes).map((recipe: Recipe, index: number) => (
                             <TableRow key={index}>
                                 <TableCell className="font-medium hover:underline">
                                     <Link href={"/dashboard/recipes/recipe/" + recipe._id}>{recipe.name}</Link>
@@ -287,16 +290,16 @@ export default function TableRecipes({ meal, goal, pagination }: any) {
                 <Pagination className="mt-4">
                     <PaginationContent>
                         <PaginationItem>
-                            <PaginationPrevious className="cursor-pointer" onClick={() => changePage(page-1)} />
+                            <PaginationPrevious className="cursor-pointer" onClick={() => changePage(page - 1)} />
                         </PaginationItem>
-                        {pages?.map((i: any) => (
+                        {pages?.map((i: number) => (
                             <PaginationItem className="shadow-transparent" key={i}>
                                 <Button className={`${i === page ? 'bg-accent ' : 'bg-background'
                                     } shadow-transparent hover:bg-accent`} onClick={() => changePage(i)}>{i}</Button>
                             </PaginationItem>
                         ))}
                         <PaginationItem>
-                            <PaginationNext className="cursor-pointer" onClick={() => changePage(page+1)} />
+                            <PaginationNext className="cursor-pointer" onClick={() => changePage(page + 1)} />
                         </PaginationItem>
                     </PaginationContent>
                 </Pagination>

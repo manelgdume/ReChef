@@ -1,7 +1,11 @@
 import Recipe from '@/app/models/Recipe';
 import connectDB from '@/lib/connectDB';
 import { NextResponse } from 'next/server';
-
+interface Query {
+    creatorID: string;
+    goal?: string;
+    meal?: string;
+  }
 export async function POST(req: Request) {
     const body = await req.json();
 
@@ -12,7 +16,7 @@ export async function POST(req: Request) {
         const { userID, goal, meal, page } = body.params;  
         const skip = (page - 1) * nResults;
  
-        const query: any = { creatorID: userID }; 
+        const query: Query = { creatorID: userID }; 
 
         if (goal) query.goal = goal;  
         if (meal) query.meal = meal;  

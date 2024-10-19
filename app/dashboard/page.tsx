@@ -45,7 +45,10 @@ import axios from "axios"
 import TableRecipes from "./components/tableRecipes"
 import { capitalize } from "@/lib/utils"
 
-
+interface Ingredient{
+  ingredient:string;
+  quantity:string;
+}
 
 export const description =
   "An orders dashboard with a sidebar navigation. The sidebar has icon navigation. The content area has a breadcrumb and search in the header. The main area has a list of recent orders with a filter and export button. The main area also has a detailed view of a single order with order details, shipping information, billing information, customer information, and payment information."
@@ -194,16 +197,16 @@ export default function Dashboard() {
                   </CardDescription>
                 </CardHeader>
                 <TabsContent value="all">
-                  <TableRecipes goal={""} pagination={false} ></TableRecipes>
+                  <TableRecipes goal={""} pagination={false} meal={''}></TableRecipes>
                 </TabsContent>
                 <TabsContent value="gain">
-                  <TableRecipes goal={"gain"} pagination={false}></TableRecipes>
+                  <TableRecipes goal={"gain"} pagination={false} meal={''}></TableRecipes>
                 </TabsContent>
                 <TabsContent value="maintain">
-                  <TableRecipes goal={"maintain"} pagination={false}></TableRecipes>
+                  <TableRecipes goal={"maintain"} pagination={false} meal={''}></TableRecipes>
                 </TabsContent>
                 <TabsContent value="lose">
-                  <TableRecipes goal={"lose"} pagination={false}></TableRecipes>
+                  <TableRecipes goal={"lose"} pagination={false} meal={''}></TableRecipes>
                 </TabsContent>
               </Card>
             </Tabs>
@@ -240,8 +243,8 @@ export default function Dashboard() {
                 <div className="grid gap-3">
                   <div className="font-semibold">Ingredients</div>
                   <ul className="grid gap-3">
-                    {lastRecipe?.ingredients?.map((i: any) => (
-                      <li key={i._id} className="flex items-center justify-between">
+                    {lastRecipe?.ingredients?.map((i: Ingredient, index: number) => (
+                      <li key={index} className="flex items-center justify-between">
                         <span className="text-muted-foreground">
                           {capitalize(i?.ingredient)}
                         </span>
@@ -254,7 +257,7 @@ export default function Dashboard() {
                 <div className="grid gap-3 ">
                   <div className="font-semibold">Instructions</div>
                   <dl className="grid gap-3">
-                    {lastRecipe?.instructions?.map((i: any, index: number) => (
+                    {lastRecipe?.instructions?.map((i: string, index: number) => (
                       <div key={index} className="flex items-center justify-between">
                         <dt className="text-muted-foreground">{i}</dt>
                       </div>

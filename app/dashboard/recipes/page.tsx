@@ -5,7 +5,6 @@ import Header from "../components/header";
  
 import Link from "next/link"
 import {
-    File,
     ListFilter,
     PlusCircle 
 } from "lucide-react"

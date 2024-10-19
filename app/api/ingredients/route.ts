@@ -1,14 +1,16 @@
 import Ingredient from '@/app/models/Ingredients';
 import connectDB from '@/lib/connectDB';
 import { NextResponse } from 'next/server';
-
+interface Filter {
+  description?: string;
+}
 export async function GET(req: Request) {
   try {
     await connectDB();
     const { searchParams } = new URL(req.url);
     const query = searchParams.get('query');
 
-    const filter: any = {};
+    const filter: Filter = {};
     if (query) filter.description = query;
 
     const items = await Ingredient.find(

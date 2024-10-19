@@ -1,10 +1,8 @@
-import Ingredient from '@/app/models/Ingredients'; // Asegúrate de que esto esté configurado para tus ingredientes
-import Recipe from '@/app/models/Recipe'; // Asegúrate de tener un modelo de receta
+ import Recipe from '@/app/models/Recipe';  
 import connectDB from '@/lib/connectDB';
 import { NextResponse } from 'next/server';
 import { ChatOpenAI } from '@langchain/openai';
-import { useClerk } from '@clerk/nextjs';
-
+ 
 const chatModel = new ChatOpenAI({
     apiKey: process.env.OPENAI
 });
@@ -13,7 +11,7 @@ export async function POST(req: Request) {
     try {
         const body = await req.json();
  
-        const connection = await connectDB();
+        await connectDB();
  
         const recipeData = body.params.recipe
         

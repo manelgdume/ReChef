@@ -2,24 +2,24 @@
 
 import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import { Button } from "@/components/ui/button";
- import { SheetTrigger, SheetContent, Sheet } from "@/components/ui/sheet";
+import { SheetTrigger, SheetContent, Sheet } from "@/components/ui/sheet";
 import { capitalize } from "@/lib/utils";
 import { UserButton } from "@clerk/nextjs";
- import { PanelLeft, Package2, Home , Utensils, PlusCircle } from "lucide-react";
+import { PanelLeft, Package2, Home, Utensils, PlusCircle } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React, { useEffect,useState } from "react";
- 
+import React, { useEffect, useState } from "react";
+
 
 export default function Header() {
   const pathname = usePathname();
   const arrPathname = pathname.split('/');
-  const [breadcrumb, setBreadcrumb] = useState<any>();
+  const [breadcrumb, setBreadcrumb] = useState<string[]>();
 
   useEffect(() => {
-    let updatedBreadcrumb = arrPathname.slice(1);
+    const updatedBreadcrumb = arrPathname.slice(1);
     if (updatedBreadcrumb.length > 3) {
-      updatedBreadcrumb.pop();  
+      updatedBreadcrumb.pop();
     }
     setBreadcrumb(updatedBreadcrumb);
   }, [pathname]);
@@ -62,13 +62,13 @@ export default function Header() {
               <PlusCircle className="h-5 w-5" />
               New recipe
             </Link>
- 
+
           </nav>
         </SheetContent>
       </Sheet>
       <Breadcrumb className="hidden md:flex">
         <BreadcrumbList>
-          {breadcrumb?.map((i: any, index: number) => (
+          {breadcrumb?.map((i: string, index: number) => (
             <React.Fragment key={`frag-${i}-${index}`}>
               <BreadcrumbItem key={`item-${i}-${index}`}>
                 <BreadcrumbLink >{capitalize(i)}</BreadcrumbLink>
@@ -79,7 +79,7 @@ export default function Header() {
         </BreadcrumbList>
       </Breadcrumb>
       <div className="relative ml-auto flex-1 md:grow-0">
- 
+
       </div>
       <UserButton />
     </header>
