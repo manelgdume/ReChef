@@ -25,9 +25,12 @@ const Header = () => {
                 </div>
 
                 <div className="flex gap-16 text-sm items-center">
-                    <Link href={"/"} className="link-underline cursor-pointer">Home</Link>
-                    <Link href={"/"} className="link-underline cursor-pointer">Features</Link>
-                    <Link href={"/"} className="link-underline cursor-pointer">Contact</Link>
+                    <div className="hidden md:flex gap-16">
+                        <Link href={"/"} className="hidden sm:flex link-underline cursor-pointer">Home</Link>
+                        <Link href={"/"} className="hidden sm:flex  link-underline cursor-pointer">Features</Link>
+                        <Link href={"/"} className="hidden sm:flex  link-underline cursor-pointer">Contact</Link>
+                    </div>
+
                     <SignedIn >
                     <button onClick={handleClick} className="items-center py-2 px-2 font-bold bg-primary rounded-lg text-black text-sm">
                                 Dashboard

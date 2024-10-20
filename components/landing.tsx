@@ -19,11 +19,11 @@ const Home = () => {
         <div id="hero" className="grid max-w-screen-xl mx-auto items-center justify-items-center px-8 text-white py-8">
           <h1 className="text-4xl font-bold mt-16">Revolutionize Your Cooking with AI-Powered Recipes!</h1>
           <h2 className="mt-4 text-md text-background">Create personalized recipes in seconds, tailored to your tastes and dietary needs.</h2>
-          <div className="flex mt-4 items-center">
-            <input className="flex bg-foreground rounded-md border-strongForeground border p-2 mr-4 w-80 placeholder:text-white focus:outline-none" type="text" name="" id="" placeholder="Enter your email for updates" />
+          <div className="sm:flex hidden mt-4 items-center">
+            <input className=" flex bg-foreground rounded-md border-strongForeground border p-2 mr-4 w-80 placeholder:text-white focus:outline-none" type="text" name="" id="" placeholder="Enter your email for updates" />
             <button className="items-center py-2 px-4 font-bold bg-primary rounded-lg text-black text-md"><span>Get Started Now</span></button>
           </div>
-          <div className="my-8" style={{ position: "relative", width: "90%", height: "500px" }}>
+          <div className=" md:w-[90%] my-8 relative w-[100%] h-[500px]">
             <Image
               src={"/landing/kitchen.jpg"}
               alt="Descripción de la imagen"
@@ -35,7 +35,7 @@ const Home = () => {
       </div>
       <div id="sections " className="bg-white">
         <div id="section" className="flex items-center justify-items-center px-16 py-16 max-w-screen-xl mx-auto" >
-          <div className="mr-16" style={{ position: "relative", width: "100%", height: "500px" }}>
+          <div className="md:block hidden mr-16 w-[100%] h-[500px]">
             <Image
               src={"/landing/cooking.jpg"}
               alt="Descripción de la imagen"
@@ -54,10 +54,10 @@ const Home = () => {
           <h3 className=" text-2xl font-bold justify-center">Unlock Flavorful Creations with AI</h3>
           <div>
             <button className="mt-8 items-center p-2 font-bold bg-primary  rounded-lg text-black text-sm w-64"><span>Start Your Culinary Journey</span></button>
-            <button className="mt-8 ml-4 items-center p-2 font-bold bg-white  border border-grey-600 rounded-lg text-black text-sm w-64"><span>Discover More Features</span></button>
+            <button className="sm:inline hidden mt-8 ml-4 items-center p-2 font-bold bg-white  border border-grey-600 rounded-lg text-black text-sm w-64"><span>Discover More Features</span></button>
           </div>
           <div>
-            <div className="mt-16 grid grid-cols-2 gap-8">
+            <div className="sm:grid-cols-2 grid-cols-1  mt-16 grid gap-8">
               <div className="flex">
                 <div className="flex rounded-md border border-gray-300 w-8 h-8 items-center justify-center">
                   <Image
@@ -119,30 +119,30 @@ const Home = () => {
           </div>
         </div>
         <div id="faq" className="grid items-center justify-items-center px-16 py-16 max-w-screen-xl mx-auto">
-          <h3 className="text-2xl font-bold mt-4">Frequently Asked Questions</h3>
+          <h3 className="text-2xl font-bold mt-4 text-center">Frequently Asked Questions</h3>
           <p className="text-sm font-semibold mt-4">Your Questions Answered</p>
-          <Accordion type="single" collapsible className="w-full px-4 mt-16">
-            <AccordionItem value="item-1" className="border border-grey-600 rounded-md px-4 bg-greyWhite mb-4">
-              <AccordionTrigger>Is the service free to use?</AccordionTrigger>
+          <Accordion type="single" collapsible className="sm:px-4 w-full px-0 mt-16">
+            <AccordionItem value="item-1" className="border border-grey-600 rounded-md px-4 bg-greyWhite mb-4 ">
+              <AccordionTrigger className="text-left">Is the service free to use?</AccordionTrigger>
               <AccordionContent>
                 We offer a free limited plan for the moment. The free plan includes all features but with restricted usage.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-2" className="border border-grey-600 rounded-md px-4 bg-greyWhite mb-4">
-              <AccordionTrigger>Can I customize recipes based on my dietary preferences?</AccordionTrigger>
+              <AccordionTrigger className="text-left">Can I customize recipes based on my dietary preferences?</AccordionTrigger>
               <AccordionContent>
                 Yes, our AI allows you to tailor recipes to your specific dietary needs, whether you are vegan, gluten-free, keto, or have other preferences.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-3" className="border border-grey-600 rounded-md px-4 bg-greyWhite mb-4">
-              <AccordionTrigger>How accurate are the nutritional insights provided?</AccordionTrigger>
+              <AccordionTrigger className="text-left">How accurate are the nutritional insights provided?</AccordionTrigger>
               <AccordionContent>
                 The nutritional information is calculated based on standard ingredient data. While highly accurate, its always a good idea to cross-check with a nutritionist for personalized advice.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-5" className="border border-grey-600 rounded-md px-4 bg-greyWhite mb-4">
-              <AccordionTrigger>Is my data secure?</AccordionTrigger>
-              <AccordionContent>
+              <AccordionTrigger className="text-left">Is my data secure?</AccordionTrigger>
+              <AccordionContent >
                 Yes, we take your privacy and data security seriously. We adhere to strict security protocols and are fully compliant with GDPR and other relevant regulations.
               </AccordionContent>
             </AccordionItem>
@@ -153,7 +153,7 @@ const Home = () => {
           <div className="  border-t border-grey-600"></div>
         </div>
         <div id="footer" className="grid grid-cols-4 items-center justify-items-start px-16 pt-8 pb-16 max-w-screen-xl mx-auto">
-          <div className="grid mt-0 pt-0 gap-2">
+          <div className=" sm:grid hidden    mt-0 pt-0 gap-2">
             <h4 className="font-semibold text-slate-600 ">Explore</h4>
             <p className="font-medium">Features</p>
             <p className="font-medium">How it Works</p>
@@ -161,7 +161,7 @@ const Home = () => {
             <p className="font-medium">Recipes</p>
             <p className="font-medium">Blog</p>
           </div>
-          <div className="grid mt-0 pt-0 gap-2">
+          <div className="sm:grid hidden    mt-0 pt-0 gap-2">
             <h4 className="font-semibold text-slate-600 ">Support</h4>
             <p className="font-medium">Help Center</p>
             <p className="font-medium">FAQs</p>
@@ -169,7 +169,7 @@ const Home = () => {
             <p className="font-medium">Terms of Service</p>
             <p className="font-medium">Contact Us</p>
           </div>
-          <div className="grid mt-0 pt-0 gap-2">
+          <div className="sm:grid hidden    mt-0 pt-0 gap-2">
             <h4 className="font-semibold text-slate-600 ">Company</h4>
             <p className="font-medium">About Us</p>
             <p className="font-medium">Careers</p>
@@ -177,7 +177,7 @@ const Home = () => {
             <p className="font-medium">Affiliates</p>
             <p className="font-medium">Sustainability</p>
           </div>
-          <div className="grid mt-0 pt-0 gap-2">
+          <div className="sm:grid hidden    mt-0 pt-0 gap-2">
             <h4 className="font-semibold text-slate-600 ">Stay Connected</h4>
             <p className="font-medium">Newsletter</p>
             <p className="font-medium">Follow us on Twitter</p>
