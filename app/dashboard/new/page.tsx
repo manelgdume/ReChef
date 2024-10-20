@@ -55,16 +55,19 @@ export default function New() {
                         params: { userId, meal, goal, ingredients },
                     }
                 );
-                setLoading(false)
-                if(!response.data[0]){
+                
+                if(response.data[1]=="You need a subscription"){
+                    setLoading(false)
                     toast({
                         title: "Recipe generation failed",
                         description: "You have reached the usage limit",
                         variant: "destructive",
                       })
+                      
                 }
                 else{
                     setRecipe(response.data);
+                    setLoading(false)
                 }
             } catch (error) {
                 console.error("Error fetching recipe:", error);
