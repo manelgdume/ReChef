@@ -9,6 +9,7 @@ import {
 import Image from "next/image";
  
 import Header from "./headerLanding";
+import { relative } from "path";
  
 const Home = () => {
  
@@ -16,7 +17,7 @@ const Home = () => {
     <div className="min-h-screen flex flex-col">
       <Header />
       <div className="bg-foreground">
-        <div id="hero" className="grid max-w-screen-xl mx-auto items-center justify-items-center px-8 text-white py-8">
+        <div id="hero" className="grid sm:px-8 px-2 max-w-screen-xl mx-auto items-center justify-items-center  text-white py-8">
           <h1 className="text-4xl font-bold mt-16">Revolutionize Your Cooking with AI-Powered Recipes!</h1>
           <h2 className="mt-4 text-md text-background">Create personalized recipes in seconds, tailored to your tastes and dietary needs.</h2>
           <div className="sm:flex hidden mt-4 items-center">
@@ -34,8 +35,8 @@ const Home = () => {
         </div>
       </div>
       <div id="sections " className="bg-white">
-        <div id="section" className="flex items-center justify-items-center px-16 py-16 max-w-screen-xl mx-auto" >
-          <div className="md:block hidden mr-16 w-[100%] h-[500px]">
+        <div id="section" className="flex items-center justify-items-center sm:px-16 px-8 py-16 max-w-screen-xl mx-auto" >
+        <div className="relative hidden md:block mr-16 w-full h-[500px]">
             <Image
               src={"/landing/cooking.jpg"}
               alt="Descripción de la imagen"
@@ -50,7 +51,7 @@ const Home = () => {
             <p className="text-sm mt-4">Read Our Privacy Policy Here</p>
           </div>
         </div>
-        <div id="section" className="items-center justify-items-center px-16 py-16 max-w-screen-xl mx-auto" >
+        <div id="section" className="items-center justify-items-center sm:px-16 px-8 py-16 max-w-screen-xl mx-auto" >
           <h3 className=" text-2xl font-bold justify-center">Unlock Flavorful Creations with AI</h3>
           <div>
             <button className="mt-8 items-center p-2 font-bold bg-primary  rounded-lg text-black text-sm w-64"><span>Start Your Culinary Journey</span></button>
@@ -118,7 +119,7 @@ const Home = () => {
 
           </div>
         </div>
-        <div id="faq" className="grid items-center justify-items-center px-16 py-16 max-w-screen-xl mx-auto">
+        <div id="faq" className="grid items-center justify-items-center sm:px-16 px-8 py-16 max-w-screen-xl mx-auto">
           <h3 className="text-2xl font-bold mt-4 text-center">Frequently Asked Questions</h3>
           <p className="text-sm font-semibold mt-4">Your Questions Answered</p>
           <Accordion type="single" collapsible className="sm:px-4 w-full px-0 mt-16">
@@ -149,10 +150,10 @@ const Home = () => {
           </Accordion>
         </div>
 
-        <div className="max-w-screen-xl mx-auto px-16 pt-16">
+        <div className="max-w-screen-xl mx-auto sm:px-16 px-8 pt-16">
           <div className="  border-t border-grey-600"></div>
         </div>
-        <div id="footer" className="grid grid-cols-4 items-center justify-items-start px-16 pt-8 pb-16 max-w-screen-xl mx-auto">
+        <div id="footer" className="grid grid-cols-4 items-center justify-items-start sm:px-16 px-8 pt-8 pb-16 max-w-screen-xl mx-auto">
           <div className=" sm:grid hidden    mt-0 pt-0 gap-2">
             <h4 className="font-semibold text-slate-600 ">Explore</h4>
             <p className="font-medium">Features</p>
@@ -198,10 +199,7 @@ const Home = () => {
             <p className="mt-4">© 2023 AI Recipe Creator. All Rights Reserved.</p>
            </div>
         </div>
-
-
-      </div>
-
+      </div>  
     </div>
 
   );

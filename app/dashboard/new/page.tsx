@@ -222,7 +222,7 @@ export default function New() {
                                         <span>{capitalize(recipe?.goal)} Weight</span>
                                     </div>
                                     <p className="text-sm mt-4">{recipe?.description}</p>
-                                    <div className="grid grid-cols-2 md:grid-cols-1 mt-4">
+                                    <div className="grid grid-cols-1 md:grid-cols-2 mt-4">
                                         <div>
                                             <h3 className="font-semibold">Ingredients</h3>
                                             <ul className="list-disc pl-5 text-sm">
