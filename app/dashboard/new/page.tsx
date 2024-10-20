@@ -56,7 +56,16 @@ export default function New() {
                     }
                 );
                 setLoading(false)
-                setRecipe(response.data);
+                if(!response.data[0]){
+                    toast({
+                        title: "Recipe generation failed",
+                        description: "You have reached the usage limit",
+                        variant: "destructive",
+                      })
+                }
+                else{
+                    setRecipe(response.data);
+                }
             } catch (error) {
                 console.error("Error fetching recipe:", error);
             }

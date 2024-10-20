@@ -18,7 +18,7 @@ export async function POST(req: Request) {
         const query = { idClerk: userId };
         console.log(query)
         const user = await User.findOne(query)
-        if (user.subActive == false && user.recipesGenerated > 4) {
+        if (user.subActive == true && user.recipesGenerated > 4) {
             return NextResponse.json([false, 'You need a subscription'], { status: 200 });
         }
         await User.findOneAndUpdate(query,{ $inc: { recipesGenerated: 1 }})

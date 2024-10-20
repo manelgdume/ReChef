@@ -55,9 +55,7 @@ export default function Page() {
                                 <TabsTrigger value="all">All</TabsTrigger>
                                 <TabsTrigger value="gain">Gain</TabsTrigger>
                                 <TabsTrigger value="maintain">Maintain</TabsTrigger>
-                                <TabsTrigger value="lose" className="hidden sm:flex">
-                                    Lose
-                                </TabsTrigger>
+                                <TabsTrigger value="lose"  >Lose</TabsTrigger>
                             </TabsList>
                             <div className="ml-auto flex items-center gap-2">
                                 <DropdownMenu>
