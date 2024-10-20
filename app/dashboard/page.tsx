@@ -4,7 +4,6 @@ import Link from "next/link"
 import {
   ChevronLeft,
   ChevronRight,
-  MoreVertical,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
@@ -15,13 +14,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
 import {
   Pagination,
   PaginationContent,
