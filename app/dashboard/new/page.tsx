@@ -75,7 +75,7 @@ export default function New() {
     const handleSave = async () => {
         if (recipe) {
             try {
-                await axios.post("http://localhost:3000/api/recipe/setRecipe", {
+                await axios.post("/api/recipe/setRecipe", {
                     params: { recipe },
                 });
                 toast({
