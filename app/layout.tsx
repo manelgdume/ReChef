@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { ClerkProvider, SignedIn, SignedOut } from "@clerk/nextjs";
+import { ClerkLoaded, ClerkLoading, ClerkProvider, SignedIn, SignedOut } from "@clerk/nextjs";
 import Landing from "@/components/landing";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/toaster"
@@ -26,13 +26,18 @@ export default function RootLayout({
       }}>
       <html lang="en">
         <body className="font-Poppins">
-          <SignedOut>
-            <Landing />
-          </SignedOut>
-          <SignedIn>
-            <TooltipProvider> {children}</TooltipProvider>
-          </SignedIn>
-          <Toaster />
+          <ClerkLoading>
+          </ClerkLoading>
+          <ClerkLoaded>
+            <SignedOut>
+              <Landing />
+            </SignedOut>
+            <SignedIn>
+              <TooltipProvider> {children}</TooltipProvider>
+            </SignedIn>
+            <Toaster />
+          </ClerkLoaded>
+
         </body>
       </html>
     </ClerkProvider>

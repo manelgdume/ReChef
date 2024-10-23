@@ -7,12 +7,17 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion"
 import Image from "next/image";
- 
+import { useRouter } from "next/navigation";
 import Header from "./headerLanding";
-import { relative } from "path";
- 
+import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
+
 const Home = () => {
- 
+  const router = useRouter();
+
+  const handleClick = () => {
+    console.log('ded')
+    router.push('/dashboard'); 
+  };
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
@@ -22,8 +27,15 @@ const Home = () => {
           <h2 className="mt-4 text-md text-background">Create personalized recipes in seconds, tailored to your tastes and dietary needs.</h2>
           <div className="sm:flex hidden mt-4 items-center">
             <input className=" flex bg-foreground rounded-md border-strongForeground border p-2 mr-4 w-80 placeholder:text-white focus:outline-none" type="text" name="" id="" placeholder="Enter your email for updates" />
-            <button className="items-center py-2 px-4 font-bold bg-primary rounded-lg text-black text-md"><span>Get Started Now</span></button>
-          </div>
+            <SignedIn >
+              <button onClick={handleClick} className="items-center py-2 px-4 font-bold bg-primary rounded-lg text-black text-md"><span>Get Started Now</span></button>
+            </SignedIn>
+            <SignedOut>
+              <SignInButton>
+              <button className="items-center py-2 px-4 font-bold bg-primary rounded-lg text-black text-md"><span>Get Started Now</span></button>
+              </SignInButton>
+            </SignedOut>
+           </div>
           <div className=" md:w-[90%] my-8 relative w-[100%] h-[500px]">
             <Image
               src={"/landing/kitchen.jpg"}
@@ -36,7 +48,7 @@ const Home = () => {
       </div>
       <div id="sections " className="bg-white">
         <div id="section" className="flex items-center justify-items-center sm:px-16 px-8 py-16 max-w-screen-xl mx-auto" >
-        <div className="relative hidden md:block mr-16 w-full h-[500px]">
+          <div className="relative hidden md:block mr-16 w-full h-[500px]">
             <Image
               src={"/landing/cooking.jpg"}
               alt="Descripción de la imagen"
@@ -47,7 +59,14 @@ const Home = () => {
           <div className="grid">
             <h3 className=" text-2xl font-bold justify-center">Transform Your Cooking with AI-Powered Recipes!</h3>
             <p className="mt-4 text-sm">Discover a world of culinary creativity at your fingertips. Our AI technology crafts personalized recipes tailored to your tastes and dietary needs, making cooking fun and effortless.</p>
-            <button className="mt-8 items-center p-2 font-bold bg-primary rounded-lg text-black text-sm w-64"><span>Get Started Now</span></button>
+            <SignedIn >
+              <button onClick={handleClick}  className="mt-8 items-center p-2 font-bold bg-primary rounded-lg text-black text-sm w-64"><span>Get Started Now</span></button>
+            </SignedIn>
+            <SignedOut>
+              <SignInButton>
+                <button className="mt-8 items-center p-2 font-bold bg-primary rounded-lg text-black text-sm w-64"><span>Get Started Now</span></button>
+              </SignInButton>
+            </SignedOut>
             <p className="text-sm mt-4">Read Our Privacy Policy Here</p>
           </div>
         </div>
@@ -197,9 +216,9 @@ const Home = () => {
               <h1 className="ml-4 text-xl font-bold">ReChef</h1>
             </div>
             <p className="mt-4">© 2023 AI Recipe Creator. All Rights Reserved.</p>
-           </div>
+          </div>
         </div>
-      </div>  
+      </div>
     </div>
 
   );
