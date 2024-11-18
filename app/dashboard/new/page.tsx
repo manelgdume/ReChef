@@ -55,7 +55,7 @@ export default function New() {
                         params: { userId, meal, goal, ingredients },
                     }
                 );
-                
+                console.log(response.data)
                 if(response.data[1]=="You need a subscription"){
                     setLoading(false)
                     toast({
@@ -105,7 +105,7 @@ export default function New() {
     return (
         <div className="flex min-h-screen w-full flex-col bg-muted/40">
             <Sidebar />
-            <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
+            <div className="flex min-h-screen flex-col sm:gap-4 sm:py-4 sm:pl-14">
                 <Header />
                 <main className="grid flex-1 gap-4 overflow-auto p-4 md:grid-cols-2 lg:grid-cols-3">
                     <div className="relative   flex-col items-start gap-8  ">
@@ -188,7 +188,7 @@ export default function New() {
                             </fieldset>
                         </div>
                     </div>
-                    <div className="border relative flex h-[75.5vh] flex-col rounded-xl bg-muted/50 p-4 lg:col-span-2 mt-[0.6rem] overflow-y-auto">
+                    <div className="border relative flex  flex-col rounded-xl bg-muted/50 p-4 lg:col-span-2 mt-[0.6rem] overflow-y-auto">
                         {loading && (
                             <div className="self-center mt-64">  <svg
                                 xmlns="http://www.w3.org/2000/svg"

@@ -27,7 +27,7 @@ export async function POST(req: Request) {
         const goal = body.params.goal || '';
         const ingredients = body.params.ingredients || '';
 
-        const prompt = `Generate a recipe for ${meal} to help achieve a goal of ${goal} weight, using the following ingredients and their quantities: ${ingredients}. The output should be in JSON format, including the following fields: 'name' (for the recipe name), 'description' (for the recipe description), 'ingredients' (an array of objects with 'ingredient' and 'quantity'), and 'instructions' (an array of step-by-step instructions).`;
+        const prompt = `Create a JSON recipe for ${meal} to achieve a ${goal} weight goal. Use these ingredients with their quantities: ${ingredients}. Include the fields: 'name' (recipe name), 'description', 'ingredients' (array of {ingredient, quantity}), 'ingredientsInG' (array matching 'ingredients' with quantities in grams), and 'instructions' (an array of step-by-step instructions).`;
 
         const response = await chatModel.invoke(prompt);
 
@@ -37,6 +37,7 @@ export async function POST(req: Request) {
             name: recipeData.name,
             description: recipeData.description,
             ingredients: recipeData.ingredients,
+            ingredientsInG: recipeData.ingredientsInG,
             instructions: recipeData.instructions,
             goal: goal,
             meal: meal,

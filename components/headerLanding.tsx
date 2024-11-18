@@ -13,7 +13,7 @@ const Header = () => {
     };
     return (
         <header className="bg-foreground text-background">
-            <div className="flex justify-between px-8 py-8 max-w-screen-xl mx-auto">
+            <div className="flex justify-between px-2 py-8 sm:px-8 max-w-screen-xl mx-auto">
                 <div className="flex items-center">
                     <Image
                         src={'/logoipsum-265.svg'}
